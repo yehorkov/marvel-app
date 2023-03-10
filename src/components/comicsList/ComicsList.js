@@ -1,4 +1,4 @@
-import { useState, usee, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -29,7 +29,7 @@ const ComicsList = () => {
         if (newComicsList.length < 8) {
             ended = true;
         }
-        setComicsList([...comicsList, ...newComicsList]);
+        setComicsList(comicsList => [...comicsList, ...newComicsList]);
         setNewItemLoading(false);
         setOffset(offset + 8);
         setComicsEnd(ended);
