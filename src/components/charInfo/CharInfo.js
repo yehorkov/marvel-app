@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
@@ -15,15 +15,15 @@ const CharInfo = (props) => {
     const {loading, error, getCharacter, clearError} = useMarvelService();
 
     useEffect(() => {
-        updateChar();
-    }, [props.charId]);
+        updateChar()
+    }, [props.charId])
 
     const updateChar = () => {
         const {charId} = props;
         if (!charId) {
             return;
         }
-    
+
         clearError();
         getCharacter(charId)
             .then(onCharLoaded)
@@ -38,7 +38,6 @@ const CharInfo = (props) => {
     const spinner = loading ? <Spinner/> : null;
     const content = !(loading || error || !char) ? <View char={char}/> : null;
 
-
     return (
         <div className="char__info">
             {skeleton}
@@ -52,15 +51,15 @@ const CharInfo = (props) => {
 const View = ({char}) => {
     const {name, description, thumbnail, homepage, wiki, comics} = char;
 
-    let imageStyle = {'objectFit' : 'cover'};
+    let imgStyle = {'objectFit' : 'cover'};
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
-        imageStyle = {'objectFit' : 'contain'};
+        imgStyle = {'objectFit' : 'contain'};
     }
 
     return (
         <>
             <div className="char__basics">
-                <img src={thumbnail} alt={name} style={imageStyle}/>
+                <img src={thumbnail} alt={name} style={imgStyle}/>
                 <div>
                     <div className="char__info-name">{name}</div>
                     <div className="char__btns">
@@ -82,16 +81,14 @@ const View = ({char}) => {
                 {
                     comics.map((item, i) => {
                         // eslint-disable-next-line
-                        if (i > 9) {
-                            return [];
-                        }
+                        if (i > 9) return;
                         return (
                             <li key={i} className="char__comics-item">
-                            {item.name}
+                                {item.name}
                             </li>
                         )
                     })
-                }
+                }                
             </ul>
         </>
     )

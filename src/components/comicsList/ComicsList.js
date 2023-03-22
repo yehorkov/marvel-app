@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 
 import useMarvelService from '../../services/MarvelService';
@@ -10,31 +10,31 @@ import './comicsList.scss';
 const ComicsList = () => {
 
     const [comicsList, setComicsList] = useState([]);
-    const [newItemLoading, setNewItemLoading] = useState(false);
+    const [newItemLoading, setnewItemLoading] = useState(false);
     const [offset, setOffset] = useState(0);
-    const [comicsEnd, setComicsEnd] = useState(false);
+    const [comicsEnded, setComicsEnded] = useState(false);
 
     const {loading, error, getAllComics} = useMarvelService();
 
     useEffect(() => {
         onRequest(offset, true);
-    }, []);
+    }, [])
 
     const onRequest = (offset, initial) => {
-        initial ? setNewItemLoading(false) : setNewItemLoading(true);
+        initial ? setnewItemLoading(false) : setnewItemLoading(true);
         getAllComics(offset)
-            .then(onComicsLoaded);
+            .then(onComicsListLoaded)
     }
 
-    const onComicsLoaded = (newComicsList) => {
+    const onComicsListLoaded = (newComicsList) => {
         let ended = false;
         if (newComicsList.length < 8) {
             ended = true;
         }
-        setComicsList(comicsList => [...comicsList, ...newComicsList]);
-        setNewItemLoading(false);
+        setComicsList([...comicsList, ...newComicsList]);
+        setnewItemLoading(false);
         setOffset(offset + 8);
-        setComicsEnd(ended);
+        setComicsEnded(ended);
     }
 
     function renderItems (arr) {
@@ -69,7 +69,7 @@ const ComicsList = () => {
             {items}
             <button 
                 disabled={newItemLoading} 
-                style={{'display' : comicsEnd ? 'none' : 'block'}}
+                style={{'display' : comicsEnded ? 'none' : 'block'}}
                 className="button button__main button__long"
                 onClick={() => onRequest(offset)}>
                 <div className="inner">load more</div>

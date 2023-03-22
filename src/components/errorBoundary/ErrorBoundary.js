@@ -5,12 +5,6 @@ class ErrorBoundary extends Component {
     state = {
         error: false
     }
-        //  метод ниже изменяет только state компонента, работает аналогично методу componentDidCatch
-    // static getDerivedStateFromError(error) {
-    //     return {
-    //         error: true
-    //     };
-    // }
 
     componentDidCatch(error, errorInfo) {
         console.log(error, errorInfo);
