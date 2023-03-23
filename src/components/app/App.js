@@ -1,5 +1,6 @@
 import {lazy, Suspense} from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import AppHeader from "../appHeader/AppHeader";
 import Spinner from '../spinner/Spinner';
@@ -15,6 +16,13 @@ const App = () => {
     return (
         <Router>
             <div className="app">
+                <Helmet>
+                    <meta
+                        name="description"
+                        content="Marvel information portal"
+                    />
+                    <title>Marvel information portal</title>
+                </Helmet>
                 <AppHeader/>
                 <main>
                     <Suspense fallback={<Spinner/>}>
